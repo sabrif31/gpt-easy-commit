@@ -15,6 +15,22 @@ You can generate commit message by pressing 'Generate AI commit' button in sourc
 You need Open AI API Key to make this extension work.
 You can get your API key from [OpenAI](https://platform.openai.com/account/api-keys).
 
+## Installation
+
+- **Install and run**
+
+  - `yarn install`
+  - **`yarn run watch`**
+  - Open extension.ts and press F5
+- **Build package**
+
+  - `yarn run build`
+  - `yarn global add vsce`
+
+On windows add variable environement: `%localappdata%/Yarn/bin`
+
+`vsce package -o packages`
+
 ## Extension Settings
 
 GPT Commit extension contributes the following settings:
@@ -39,33 +55,6 @@ GPT Commit extension contributes the following settings:
 ## Release Notes
 
 ### 1.0.0
-
-Initial release of GPT Commit
-
-### 1.0.1
-
-Updated icons
-
-### 1.0.2
-
-Fixed UX
-
-### 1.0.3
-
-Added Open AI API Key input prompt
-
-### 1.0.4
-
-Updated commit formatting. Added new setting
-
-### 1.0.5
-
-Added new advanced configuration for ChatGPT.\
-Added new option to accept and edit generated commit via temp message file. (Thanks for help [chenweiyi](https://github.com/chenweiyi))\
-Added option to set custom ChatGPT endpoint URL. (Thanks for help [aiyogg](https://github.com/aiyogg))\
-Fixed issue with git on windows (Issue [#5](https://github.com/dmytrobaida/GPTCommitVSCode/issues/5))\
-Added option to select different ChatGPT version (Issue [#6](https://github.com/dmytrobaida/GPTCommitVSCode/issues/6))\
-Set default ChatGPT version to gpt-3.5-turbo-16k
 
 ## License
 
