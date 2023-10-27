@@ -18,6 +18,9 @@ const configurationSchema = z.object({
       .default("Quick pick")
       .catch("Quick pick")
       .optional(),
+    language: z.enum(["english", "french"]).default("english"),
+    emoji: z.enum(["true", "false"]).default("false"),
+    description: z.enum(["true", "false"]).default("false"),
   }),
   openAI: z.object({
     apiKey: z.string().optional(),

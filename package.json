@@ -112,6 +112,33 @@
           "type": "number",
           "default": 196,
           "description": "The maximum number of tokens to generate. Requests can use up to 2048 tokens shared between prompt and completion"
+        },
+        "gptcommitSabrach.general.language": {
+          "type": "string",
+          "enum": [
+            "english",
+            "french"
+          ],
+          "default": "english",
+          "description": "Choose language for commit messages"
+        },
+        "gptcommitSabrach.general.emoji": {
+          "type": "string",
+          "enum": [
+            "true",
+            "false"
+          ],
+          "default": "false",
+          "description": "Enable emoji in commit messages conventionnal"
+        },
+        "gptcommitSabrach.general.description": {
+          "type": "string",
+          "enum": [
+            "true",
+            "false"
+          ],
+          "default": "false",
+          "description": "Enable description in commit messages conventionnal"
         }
       }
     }

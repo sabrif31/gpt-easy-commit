@@ -12,34 +12,42 @@ import {
 } from "openai";
 
 import { trimNewLines } from "@utils/text";
-import { Configuration as AppConfiguration } from "@utils/configuration";
+import {
+  Configuration as AppConfiguration,
+  getConfiguration,
+} from "@utils/configuration";
 
 import { MsgGenerator } from "./msg-generator";
 
 const config = {
-  OCO_EMOJI: true,
-  OCO_DESCRIPTION: true,
   gptVersion: "gpt-4",
   temperature: 0.2,
   maxTokens: 196,
+  language: "english",
+  emoji: false,
+  description: false,
 };
-const language = "en";
+const configuration = getConfiguration();
+
+const defaultContent = `You are to act as the author of a commit message in git. Your mission is to create clean and comprehensive commit messages in the conventional commit convention. I'll send you an output of 'git diff --staged' command, and you convert it into a commit message. Do not preface the commit with anything, use the present tense. Don't add any descriptions to the commit, only commit message. Use ${configuration.general.language} language to answer.`;
 
 export const IDENTITY =
   "You are to act as the author of a commit message in git.";
-const defaultContent = `You are to act as the author of a commit message in git. Your mission is to create clean and comprehensive commit messages in the conventional commit convention. I'll send you an output of 'git diff --staged' command, and you convert it into a commit message. Do not preface the commit with anything, use the present tense. Don't add any descriptions to the commit, only commit message. Use english language to answer.`;
 const openCommitContent = `${IDENTITY} Your mission is to create clean and comprehensive commit messages as per the conventional commit convention and explain WHAT were the changes and mainly WHY the changes were done. I'll send you an output of 'git diff --staged' command, and you are to convert it into a commit message.
 ${
-  config?.OCO_EMOJI
+  configuration.general.emoji === "true"
     ? "Use GitMoji convention to preface the commit."
     : "Do not preface the commit with anything."
 }
 ${
-  config?.OCO_DESCRIPTION
+  configuration.general.description === "true"
     ? 'Add a short description of WHY the changes are done after the commit message. Don\'t start it with "This commit", just describe the changes.'
     : "Don't add any descriptions to the commit, only commit message."
 }
-Use the present tense. Lines must not be longer than 74 characters. Use ${language} for the commit message.`;
+Use the present tense. Lines must not be longer than 74 characters. Use ${
+  configuration.general.language.substring(0, 2) ||
+  config.language.substring(0, 2)
+} language for the commit message.`;
 
 const initMessagesPrompt: Array<ChatCompletionRequestMessage> = [
   {
