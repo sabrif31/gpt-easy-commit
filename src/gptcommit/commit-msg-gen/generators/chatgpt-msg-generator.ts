@@ -31,6 +31,7 @@ const configuration = getConfiguration();
 
 const defaultContent = `You are to act as the author of a commit message in git. Your mission is to create clean and comprehensive commit messages in the conventional commit convention. I'll send you an output of 'git diff --staged' command, and you convert it into a commit message. Do not preface the commit with anything, use the present tense. Don't add any descriptions to the commit, only commit message. Use ${configuration.general.language} language to answer.`;
 
+// Open Commit
 export const IDENTITY =
   "You are to act as the author of a commit message in git.";
 const openCommitContent = `${IDENTITY} Your mission is to create clean and comprehensive commit messages as per the conventional commit convention and explain WHAT were the changes and mainly WHY the changes were done. I'll send you an output of 'git diff --staged' command, and you are to convert it into a commit message.
@@ -49,11 +50,34 @@ Use the present tense. Lines must not be longer than 74 characters. Use ${
   config.language.substring(0, 2)
 } language for the commit message.`;
 
+// https://gitlab.com/kerkmann/commitgpt/-/blob/main/src/main.rs?ref_type=heads
+const commitGpt = `You are a helpful assistant which helps to write commit messages based on the given diff and reason.\n
+The first line is explaining why there are specific changes and the other lines describes what have been changed.\n
+Follow the following git commit message convention:\n
+<type>: <description>\n
+
+<why>\n
+
+Changes:\n
+<what>`;
+
+const myPrompt = `You are a helpful assistant which helps to write commit messages based on the given diff and reason.
+The first line is explaining why there are specific changes and the other lines describes what have been changed. Use gitmoji. 
+Use ${
+  configuration.general.language.substring(0, 2) ||
+  config.language.substring(0, 2)
+} language for the commit message. 
+Follow the following git commit message convention:
+start-with-gitmoji? type(scope?): subject
+body?
+footer?`;
+
 const initMessagesPrompt: Array<ChatCompletionRequestMessage> = [
   {
     role: ChatCompletionRequestMessageRoleEnum.System,
-    content: openCommitContent,
+    content: commitGpt,
   },
+  /*
   {
     role: ChatCompletionRequestMessageRoleEnum.User,
     content: `diff --git a/src/server.ts b/src/server.ts
@@ -84,6 +108,7 @@ const initMessagesPrompt: Array<ChatCompletionRequestMessage> = [
     content: `fix(server.ts): change port variable case from lowercase port to uppercase PORT
         feat(server.ts): add support for process.env.PORT environment variable`,
   },
+  */
 ];
 
 function generateCommitMessageChatCompletionPrompt(

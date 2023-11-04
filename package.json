@@ -1,6 +1,6 @@
 {
-  "name": "gpt-commit-sabrach",
-  "displayName": "GPT Commit - SABRACH",
+  "name": "zeliq-commit-gpt",
+  "displayName": "Zeliq Commit GPT",
   "description": "VS Code extension which helps to generate AI commit messages using ChatGPT",
   "version": "0.0.1",
   "homepage": "https://github.com/dmytrobaida/GPTCommitVSCode#readme",
@@ -54,7 +54,7 @@
       ]
     },
     "configuration": {
-      "title": "GPT Commit - Sabrach",
+      "title": "Zeliq Commit GPT",
       "properties": {
         "gptcommitSabrach.appearance.delimeter": {
           "type": "string",
